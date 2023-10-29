@@ -15,7 +15,7 @@ public class StationPrices {
     @Nullable
     public Double dieselPremium;
 
-    public StationPrices(){
+    public StationPrices() {
     }
 
     public StationPrices(@Nullable Double petrol95, @Nullable Double petrol98, @Nullable Double diesel, @Nullable Double dieselPremium) {
@@ -25,7 +25,7 @@ public class StationPrices {
         this.dieselPremium = dieselPremium;
     }
 
-    public StationPriceInfo ToStationPriceInfo(){
+    public StationPriceInfo ToStationPriceInfo() {
         return new StationPriceInfo(petrol95, petrol98, diesel, dieselPremium);
     }
 

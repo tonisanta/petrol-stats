@@ -6,5 +6,5 @@ public record Station(
         String provinceId,
         String communityId,
         StationPriceInfo priceInfo
-){
+) {
 }

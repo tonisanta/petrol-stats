@@ -22,10 +22,10 @@ class StationsRepositoryImpl implements StationsRepository {
         for (int i = 0; i < stationDetails.length; i++) {
             RootResponse.StationDetails s = stationDetails[i];
 
-            Double petrol95 = s.petrol95.isBlank() ? null : Double.parseDouble(s.petrol95.replace(",","."));
-            Double petrol98 = s.petrol98.isBlank() ? null : Double.parseDouble(s.petrol98.replace(",","."));
-            Double diesel = s.diesel.isBlank() ? null : Double.parseDouble(s.diesel.replace(",","."));
-            Double dieselPremium = s.dieselPremium.isBlank() ? null : Double.parseDouble(s.dieselPremium.replace(",","."));
+            Double petrol95 = s.petrol95.isBlank() ? null : Double.parseDouble(s.petrol95.replace(",", "."));
+            Double petrol98 = s.petrol98.isBlank() ? null : Double.parseDouble(s.petrol98.replace(",", "."));
+            Double diesel = s.diesel.isBlank() ? null : Double.parseDouble(s.diesel.replace(",", "."));
+            Double dieselPremium = s.dieselPremium.isBlank() ? null : Double.parseDouble(s.dieselPremium.replace(",", "."));
 
             var stationPrices = new StationPrices(petrol95, petrol98, diesel, dieselPremium);
             var station = new StationInternal(s.id, s.cityId, s.provinceId, s.communityId, stationPrices);

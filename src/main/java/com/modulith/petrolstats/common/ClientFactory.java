@@ -20,7 +20,7 @@ public class ClientFactory {
                 .trustManager(InsecureTrustManagerFactory.INSTANCE)
                 .build();
 
-        var httpClient = HttpClient.create().secure(t -> t.sslContext(sslContext) );
+        var httpClient = HttpClient.create().secure(t -> t.sslContext(sslContext));
 
         WebClient webClient = WebClient.builder()
                 .baseUrl(baseUrl)

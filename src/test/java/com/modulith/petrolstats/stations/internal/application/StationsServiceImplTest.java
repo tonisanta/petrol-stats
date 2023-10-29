@@ -26,16 +26,16 @@ import static org.mockito.Mockito.when;
 class StationsServiceImplTest {
     private final StationInternal[] stations = {
             new StationInternal("1", "cityC", "provinceA", "communityD",
-                    new StationPrices(1.0, 2.0,6.4,4.0)),
+                    new StationPrices(1.0, 2.0, 6.4, 4.0)),
 
             new StationInternal("2", "cityA", "provinceC", "communityB",
-                    new StationPrices(2.0, 4.5,3.0,6.0)),
+                    new StationPrices(2.0, 4.5, 3.0, 6.0)),
 
             new StationInternal("3", "cityB", "provinceA", "communityB",
-                    new StationPrices(3.0, 2.0,3.0,4.0)),
+                    new StationPrices(3.0, 2.0, 3.0, 4.0)),
 
             new StationInternal("4", "cityA", "provinceA", "communityC",
-                    new StationPrices(4.0, 1.5,6.0,4.0))
+                    new StationPrices(4.0, 1.5, 6.0, 4.0))
     };
 
     @MethodSource
@@ -58,13 +58,13 @@ class StationsServiceImplTest {
 
         return Stream.of(
                 Arguments.of(Named.of("should return all of them when no filter is provided", null),
-                         new String[]{"1","2","3","4"}),
+                        new String[]{"1", "2", "3", "4"}),
 
-                Arguments.of(Named.of("should filter by city",filterByCity),
-                         new String[]{"2","4"}),
+                Arguments.of(Named.of("should filter by city", filterByCity),
+                        new String[]{"2", "4"}),
 
                 Arguments.of(Named.of("should filter by province", filterByProvince),
-                        new String[]{"1","3","4"}),
+                        new String[]{"1", "3", "4"}),
 
                 Arguments.of(Named.of("should filter by community", filterByCommunity),
                         new String[]{})
@@ -85,9 +85,9 @@ class StationsServiceImplTest {
 
     static Stream<Arguments> getPricesAggregatedByGeo() {
         Map<String, StationPriceInfo> expectedPricesByCity = Map.of(
-                "cityA", new StationPriceInfo(3.0, 3.0,4.5,5.0),
-                "cityB", new StationPriceInfo(3.0,2.0,3.0,4.0),
-                "cityC", new StationPriceInfo(1.0,2.0,6.4,4.0)
+                "cityA", new StationPriceInfo(3.0, 3.0, 4.5, 5.0),
+                "cityB", new StationPriceInfo(3.0, 2.0, 3.0, 4.0),
+                "cityC", new StationPriceInfo(1.0, 2.0, 6.4, 4.0)
         );
 
         Map<String, StationPriceInfo> expectedPricesByProvince = Map.of(
@@ -96,7 +96,7 @@ class StationsServiceImplTest {
                         (2 + 2 + 1.5) / 3.0,
                         (6.4 + 3 + 6) / 3.0,
                         4.0),
-                "provinceC", new StationPriceInfo(2.0, 4.5,3.0,6.0)
+                "provinceC", new StationPriceInfo(2.0, 4.5, 3.0, 6.0)
         );
 
         Map<String, StationPriceInfo> expectedPricesByCommunity = Map.of(
@@ -105,8 +105,8 @@ class StationsServiceImplTest {
                         (4.5 + 2) / 2.0,
                         3.0,
                         5.0),
-                "communityC", new StationPriceInfo(4.0, 1.5,6.0,4.0),
-                "communityD", new StationPriceInfo(1.0, 2.0,6.4,4.0)
+                "communityC", new StationPriceInfo(4.0, 1.5, 6.0, 4.0),
+                "communityD", new StationPriceInfo(1.0, 2.0, 6.4, 4.0)
         );
 
         return Stream.of(

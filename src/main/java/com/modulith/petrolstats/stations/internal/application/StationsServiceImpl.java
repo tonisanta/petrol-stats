@@ -56,7 +56,6 @@ class StationsServiceImpl implements StationsService {
         StationInternal[] stations = stationsRepository.getStations();
         Function<StationInternal, String> geoIdPicker = getGeoIdPicker(geoCategory);
 
-
         Map<String, Double> avgPetrol95ByGeo = getAverageByGeoAndProduct(Arrays.stream(stations),
                 geoIdPicker,
                 s -> s.stationPrices().petrol95);
@@ -77,10 +76,10 @@ class StationsServiceImpl implements StationsService {
         // to simply the initialization of the values, we are going to get all the ids to instantiate
         // the price object
         Set<String> geoIds = Stream.of(
-                    avgPetrol95ByGeo.keySet(),
-                    avgPetrol98ByGeo.keySet(),
-                    avgDieselByGeo.keySet(),
-                    avgDieselPremiumByGeo.keySet())
+                        avgPetrol95ByGeo.keySet(),
+                        avgPetrol98ByGeo.keySet(),
+                        avgDieselByGeo.keySet(),
+                        avgDieselPremiumByGeo.keySet())
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
 
@@ -98,13 +97,13 @@ class StationsServiceImpl implements StationsService {
         // map to the api record
         var priceInfoByGeo = new HashMap<String, StationPriceInfo>(geoIds.size());
         pricesByGeoId.forEach((id, prices) -> {
-            priceInfoByGeo.put(id, new StationPriceInfo(prices.petrol95,prices.petrol98,prices.diesel,prices.dieselPremium));
+            priceInfoByGeo.put(id, new StationPriceInfo(prices.petrol95, prices.petrol98, prices.diesel, prices.dieselPremium));
         });
         return priceInfoByGeo;
     }
 
     private static Function<StationInternal, String> getGeoIdPicker(@NotNull GeoCategory geoCategory) {
-        return switch (geoCategory){
+        return switch (geoCategory) {
             case CITY -> StationInternal::cityId;
             case PROVINCE -> StationInternal::provinceId;
             case AUTONOMOUS_COMMUNITY -> StationInternal::communityId;

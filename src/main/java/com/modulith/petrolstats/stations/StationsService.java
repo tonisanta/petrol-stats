@@ -10,5 +10,6 @@ import java.util.Map;
 // but then the consumer needs to inject multiple of them
 public interface StationsService {
     Station[] getByFilter(@Nullable Filter filter);
+
     Map<String, StationPriceInfo> getPricesAggregatedByGeo(@NotNull GeoCategory geoCategory);
 }

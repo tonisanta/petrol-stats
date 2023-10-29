@@ -7,12 +7,12 @@ import org.springframework.modulith.core.ApplicationModules;
 @SpringBootTest
 class PetrolStatsApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
-	@Test
-	void verifyModuleStructure(){
-		ApplicationModules.of(PetrolStatsApplication.class).verify();
-	}
+    @Test
+    void verifyModuleStructure() {
+        ApplicationModules.of(PetrolStatsApplication.class).verify();
+    }
 }
