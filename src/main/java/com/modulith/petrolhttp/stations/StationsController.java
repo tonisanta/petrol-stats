@@ -41,8 +41,7 @@ public class StationsController {
 
     @GetMapping("/aggregate")
     Map<String, StationPriceInfo> getPricesAggregatedByGeo(@RequestParam GeoCategory geoCategory) {
-        var response = stationsService.getPricesAggregatedByGeo(geoCategory);
-        return response;
+        return stationsService.getPricesAggregatedByGeo(geoCategory);
     }
 }
 

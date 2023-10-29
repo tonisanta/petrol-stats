@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.net.ssl.SSLException;
 import java.time.Duration;
-import java.util.Timer;
 
 @Configuration
 class StationsRepoConfig {

@@ -3,7 +3,6 @@ package com.modulith.petrolhttp.stations;
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
@@ -53,5 +52,5 @@ class StationsControllerTest {
         Map<String, StationPriceInfo> pricesAggregatedByGeo = stationsController.getPricesAggregatedByGeo(GeoCategory.PROVINCE);
         assertEquals(expectedPricesByCity, pricesAggregatedByGeo);
     }
-    
+
 }

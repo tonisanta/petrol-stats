@@ -7,7 +7,6 @@ import com.modulith.petrolstats.geography.internal.domain.GeoRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 
 @Service
 class GeoServiceImpl implements GeoService {
