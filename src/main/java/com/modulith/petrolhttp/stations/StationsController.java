@@ -1,9 +1,13 @@
 package com.modulith.petrolhttp.stations;
 
 import com.modulith.petrolstats.geography.GeoCategory;
-import com.modulith.petrolstats.stations.*;
-import com.modulith.petrolstats.stations.spi.ComputePricesByGeo;
-import com.modulith.petrolstats.stations.spi.SearchByFilter;
+import com.modulith.petrolstats.stations.DataNotAvailableException;
+import com.modulith.petrolstats.stations.StationPriceInfo;
+import com.modulith.petrolstats.stations.pricesbygeo.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.searchbyfilter.Filter;
+import com.modulith.petrolstats.stations.searchbyfilter.GeoFilter;
+import com.modulith.petrolstats.stations.searchbyfilter.SearchByFilter;
+import com.modulith.petrolstats.stations.searchbyfilter.Station;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

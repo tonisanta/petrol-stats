@@ -1,12 +1,12 @@
 package com.modulith.petrolstats.stations.internal.application;
 
 import com.modulith.petrolstats.geography.GeoCategory;
-import com.modulith.petrolstats.stations.Filter;
-import com.modulith.petrolstats.stations.GeoFilter;
-import com.modulith.petrolstats.stations.Station;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
 import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.searchbyfilter.Filter;
+import com.modulith.petrolstats.stations.searchbyfilter.GeoFilter;
+import com.modulith.petrolstats.stations.searchbyfilter.Station;
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

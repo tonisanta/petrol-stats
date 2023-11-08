@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.stations.spi;
+package com.modulith.petrolstats.stations.pricesbygeo;
 
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.StationPriceInfo;

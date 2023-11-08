@@ -5,7 +5,7 @@ import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
 import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
-import com.modulith.petrolstats.stations.spi.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.pricesbygeo.ComputePricesByGeo;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

@@ -1,12 +1,12 @@
 package com.modulith.petrolhttp.stations;
 
 import com.modulith.petrolstats.geography.GeoCategory;
-import com.modulith.petrolstats.stations.Filter;
-import com.modulith.petrolstats.stations.GeoFilter;
-import com.modulith.petrolstats.stations.Station;
 import com.modulith.petrolstats.stations.StationPriceInfo;
-import com.modulith.petrolstats.stations.spi.ComputePricesByGeo;
-import com.modulith.petrolstats.stations.spi.SearchByFilter;
+import com.modulith.petrolstats.stations.pricesbygeo.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.searchbyfilter.Filter;
+import com.modulith.petrolstats.stations.searchbyfilter.GeoFilter;
+import com.modulith.petrolstats.stations.searchbyfilter.SearchByFilter;
+import com.modulith.petrolstats.stations.searchbyfilter.Station;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 

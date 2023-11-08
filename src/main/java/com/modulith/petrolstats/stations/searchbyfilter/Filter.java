@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.stations;
+package com.modulith.petrolstats.stations.searchbyfilter;
 
 import org.jetbrains.annotations.Nullable;
 

@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.stations;
+package com.modulith.petrolstats.stations.searchbyfilter;
 
 import com.modulith.petrolstats.geography.GeoCategory;
 import org.jetbrains.annotations.NotNull;
