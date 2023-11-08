@@ -4,7 +4,6 @@ import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.Filter;
 import com.modulith.petrolstats.stations.GeoFilter;
 import com.modulith.petrolstats.stations.Station;
-import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
 import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
@@ -14,16 +13,16 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class StationsServiceImplTest {
+public class SearchByFilterImplTest {
+
+    // TODO: have it in a common place maybe or use different data?
     private final StationInternal[] stations = {
             new StationInternal("1", "cityC", "provinceA", "communityD",
                     new StationPrices(1.0, 2.0, 6.4, 4.0)),
@@ -44,8 +43,8 @@ class StationsServiceImplTest {
         StationsRepository stationsRepository = mock();
         when(stationsRepository.getStations()).thenReturn(stations);
 
-        StationsServiceImpl stationsService = new StationsServiceImpl(stationsRepository);
-        Station[] filteredStations = stationsService.getByFilter(filter);
+        SearchByFilterImpl stationsService = new SearchByFilterImpl(stationsRepository);
+        Station[] filteredStations = stationsService.searchByFilter(filter);
 
         String[] ids = Arrays.stream(filteredStations).map(Station::id).toArray(String[]::new);
         assertArrayEquals(expectedIds, ids);
@@ -68,51 +67,6 @@ class StationsServiceImplTest {
 
                 Arguments.of(Named.of("should filter by community", filterByCommunity),
                         new String[]{})
-        );
-    }
-
-    @MethodSource
-    @ParameterizedTest(name = "{index}: {0}")
-    void getPricesAggregatedByGeo(GeoCategory geoCategory, Map<String, StationPriceInfo> expectedPriceByGeoId) {
-        StationsRepository stationsRepository = mock();
-        when(stationsRepository.getStations()).thenReturn(stations);
-
-        StationsServiceImpl stationsService = new StationsServiceImpl(stationsRepository);
-        Map<String, StationPriceInfo> avgPriceByGeoId = stationsService.getPricesAggregatedByGeo(geoCategory);
-
-        assertEquals(expectedPriceByGeoId, avgPriceByGeoId);
-    }
-
-    static Stream<Arguments> getPricesAggregatedByGeo() {
-        Map<String, StationPriceInfo> expectedPricesByCity = Map.of(
-                "cityA", new StationPriceInfo(3.0, 3.0, 4.5, 5.0),
-                "cityB", new StationPriceInfo(3.0, 2.0, 3.0, 4.0),
-                "cityC", new StationPriceInfo(1.0, 2.0, 6.4, 4.0)
-        );
-
-        Map<String, StationPriceInfo> expectedPricesByProvince = Map.of(
-                "provinceA", new StationPriceInfo(
-                        (1 + 3 + 4) / 3.0,
-                        (2 + 2 + 1.5) / 3.0,
-                        (6.4 + 3 + 6) / 3.0,
-                        4.0),
-                "provinceC", new StationPriceInfo(2.0, 4.5, 3.0, 6.0)
-        );
-
-        Map<String, StationPriceInfo> expectedPricesByCommunity = Map.of(
-                "communityB", new StationPriceInfo(
-                        (2 + 3) / 2.0,
-                        (4.5 + 2) / 2.0,
-                        3.0,
-                        5.0),
-                "communityC", new StationPriceInfo(4.0, 1.5, 6.0, 4.0),
-                "communityD", new StationPriceInfo(1.0, 2.0, 6.4, 4.0)
-        );
-
-        return Stream.of(
-                Arguments.of(Named.of("should get average by city", GeoCategory.CITY), expectedPricesByCity),
-                Arguments.of(Named.of("should get average by province", GeoCategory.PROVINCE), expectedPricesByProvince),
-                Arguments.of(Named.of("should get average by community", GeoCategory.AUTONOMOUS_COMMUNITY), expectedPricesByCommunity)
         );
     }
 }

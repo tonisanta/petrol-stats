@@ -2,12 +2,11 @@ package com.modulith.petrolhttp.stations;
 
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.*;
+import com.modulith.petrolstats.stations.spi.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.spi.SearchByFilter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Set;
@@ -15,10 +14,12 @@ import java.util.Set;
 @RestController
 @RequestMapping("/stations")
 public class StationsController {
-    private final StationsService stationsService;
+    private final SearchByFilter searchByFilter;
+    private final ComputePricesByGeo computePricesByGeo;
 
-    public StationsController(StationsService stationsService) {
-        this.stationsService = stationsService;
+    public StationsController(SearchByFilter searchByFilter, ComputePricesByGeo computePricesByGeo) {
+        this.searchByFilter = searchByFilter;
+        this.computePricesByGeo = computePricesByGeo;
     }
 
     @GetMapping()
@@ -33,16 +34,20 @@ public class StationsController {
         }
 
         try {
-            Station[] response = stationsService.getByFilter(filter);
+            Station[] response = searchByFilter.searchByFilter(filter);
             return ResponseEntity.ok(response);
         } catch (DataNotAvailableException e) {
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
 
-    @GetMapping("/aggregate")
-    Map<String, StationPriceInfo> getPricesAggregatedByGeo(@RequestParam GeoCategory geoCategory) {
-        return stationsService.getPricesAggregatedByGeo(geoCategory);
+    @GetMapping("/aggregate/{geoCategory}")
+    ResponseEntity<Map<String, StationPriceInfo>> getPricesAggregatedByGeo(@PathVariable GeoCategory geoCategory) {
+        try {
+            return ResponseEntity.ok(computePricesByGeo.computePricesByGeo(geoCategory));
+        } catch (DataNotAvailableException e) {
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
     }
 }
 

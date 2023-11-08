@@ -2,6 +2,8 @@ package com.modulith.petrolhttp.stations;
 
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.*;
+import com.modulith.petrolstats.stations.spi.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.spi.SearchByFilter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,7 +28,11 @@ public class StationsControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private StationsService stationsService;
+    private SearchByFilter searchByFilter;
+
+    // TODO: add tests for prices by geo
+    @MockBean
+    private ComputePricesByGeo computePricesByGeo;
 
     @Test
     void shouldReturnStationsAsJsonAnd200() throws Exception {
@@ -52,7 +58,7 @@ public class StationsControllerIntegrationTest {
                 ]
                 """;
 
-        when(stationsService.getByFilter(null)).thenReturn(stations);
+        when(searchByFilter.searchByFilter(null)).thenReturn(stations);
         mockMvc.perform(get("/stations"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
@@ -71,7 +77,7 @@ public class StationsControllerIntegrationTest {
 
         // This filter must be created based on the query parameters
         var filter = new Filter(new GeoFilter(GeoCategory.PROVINCE, Set.of("07", "19")));
-        when(stationsService.getByFilter(filter)).thenReturn(stations);
+        when(searchByFilter.searchByFilter(filter)).thenReturn(stations);
 
         mockMvc.perform(
                         get("/stations")
@@ -82,7 +88,7 @@ public class StationsControllerIntegrationTest {
 
     @Test
     void shouldReturn503WhenNoDataAvailable() throws Exception {
-        when(stationsService.getByFilter(null)).thenThrow(DataNotAvailableException.class);
+        when(searchByFilter.searchByFilter(null)).thenThrow(DataNotAvailableException.class);
         mockMvc.perform(get("/stations"))
                 .andExpect(status().isServiceUnavailable());
     }
