@@ -1,11 +1,13 @@
 package com.modulith.petrolstats.stations.internal.infrastructure;
 
+import com.modulith.petrolstats.stations.CacheUpdated;
 import com.modulith.petrolstats.stations.DataNotAvailableException;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +16,12 @@ class StationsRepositoryCache implements StationsRepository {
     private final Logger logger = LoggerFactory.getLogger(StationsRepositoryCache.class);
     private final StationsRepository stationsRepository;
     private StationInternal[] data;
+    private final ApplicationEventPublisher events;
 
-    public StationsRepositoryCache(@Qualifier("stationsRepositoryImpl") StationsRepository stationsRepository) {
+    public StationsRepositoryCache(@Qualifier("stationsRepositoryImpl") StationsRepository stationsRepository,
+                                   ApplicationEventPublisher events) {
         this.stationsRepository = stationsRepository;
+        this.events = events;
     }
 
     @Override
@@ -32,6 +37,7 @@ class StationsRepositoryCache implements StationsRepository {
     void updateCache() throws DataNotAvailableException {
         logger.info("getting new data");
         data = stationsRepository.getStations();
+        events.publishEvent(new CacheUpdated());
         logger.info("cache data updated");
     }
 }

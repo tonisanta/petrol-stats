@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -35,7 +34,7 @@ public class StationsController {
 
         try {
             Station[] response = stationsService.getByFilter(filter);
-            return ResponseEntity.of(Optional.of(response));
+            return ResponseEntity.ok(response);
         } catch (DataNotAvailableException e) {
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
         }

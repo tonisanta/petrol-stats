@@ -1,6 +1,6 @@
 package com.modulith.petrolstats.stations.internal.infrastructure;
 
-import com.modulith.petrolstats.common.ClientFactory;
+import com.modulith.petrolstats.shared.ClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +12,7 @@ class StationsRepoConfig {
     @Bean
     public StationsRepositorySpringClient createStationsRepositorySpringClient() throws SSLException {
         var baseUrl = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes";
-        return ClientFactory.createClient(StationsRepositorySpringClient.class, Duration.ofSeconds(10), baseUrl);
+        return ClientFactory.createClient(StationsRepositorySpringClient.class, Duration.ofSeconds(30), baseUrl);
     }
 
 }

@@ -1,23 +1,26 @@
 package com.modulith.petrolstats.stations.internal.infrastructure;
 
+import com.modulith.petrolstats.stations.CacheUpdated;
 import com.modulith.petrolstats.stations.DataNotAvailableException;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
 import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.context.ApplicationEventPublisher;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class StationsRepositoryCacheTest {
-
     @Test
     void shouldThrowAnExceptionWhenDataIsNotAvailable() {
         StationsRepository stationsRepository = mock();
-        StationsRepositoryCache repositoryCache = new StationsRepositoryCache(stationsRepository);
+        ApplicationEventPublisher applicationEventPublisher = mock();
+        StationsRepositoryCache repositoryCache = new StationsRepositoryCache(stationsRepository, applicationEventPublisher);
         assertThrows(DataNotAvailableException.class, repositoryCache::getStations);
+        verify(applicationEventPublisher, times(0)).publishEvent(Mockito.any(CacheUpdated.class));
     }
 
     @Test
@@ -34,7 +37,8 @@ class StationsRepositoryCacheTest {
 
         StationsRepository stationsRepository = mock();
         when(stationsRepository.getStations()).thenReturn(stationsFirstVersion);
-        StationsRepositoryCache repositoryCache = new StationsRepositoryCache(stationsRepository);
+        ApplicationEventPublisher applicationEventPublisher = mock();
+        StationsRepositoryCache repositoryCache = new StationsRepositoryCache(stationsRepository, applicationEventPublisher);
 
         repositoryCache.updateCache();
         assertArrayEquals(stationsFirstVersion, repositoryCache.getStations());
@@ -44,5 +48,7 @@ class StationsRepositoryCacheTest {
 
         repositoryCache.updateCache();
         assertArrayEquals(stationsSecondVersion, repositoryCache.getStations());
+
+        verify(applicationEventPublisher, times(2)).publishEvent(Mockito.any(CacheUpdated.class));
     }
 }
