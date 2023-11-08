@@ -1,12 +1,10 @@
 package com.modulith.petrolstats.stations.internal.application;
 
-import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.Filter;
 import com.modulith.petrolstats.stations.Station;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
 import com.modulith.petrolstats.stations.spi.SearchByFilter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,7 @@ public class SearchByFilterImpl implements SearchByFilter {
         Stream<StationInternal> filteredStations = Arrays.stream(stations);
         if (filter.geoFilter() != null) {
             var geoFilter = filter.geoFilter();
-            Function<StationInternal, String> geoIdPicker = getGeoIdPicker(geoFilter.geoCategory());
+            Function<StationInternal, String> geoIdPicker = StationInternal.getGeoIdPicker(geoFilter.geoCategory());
             filteredStations = filteredStations.filter(station -> geoFilter.ids().contains(geoIdPicker.apply(station)));
         }
 
@@ -46,12 +44,4 @@ public class SearchByFilterImpl implements SearchByFilter {
                 .toArray(Station[]::new);
     }
 
-    // TODO: maybe move to domain?
-    private static Function<StationInternal, String> getGeoIdPicker(@NotNull GeoCategory geoCategory) {
-        return switch (geoCategory) {
-            case CITY -> StationInternal::cityId;
-            case PROVINCE -> StationInternal::provinceId;
-            case AUTONOMOUS_COMMUNITY -> StationInternal::communityId;
-        };
-    }
 }

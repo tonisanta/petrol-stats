@@ -29,7 +29,7 @@ public class ComputePricesByGeoImpl implements ComputePricesByGeo {
     @Override
     public Map<String, StationPriceInfo> computePricesByGeo(@NotNull GeoCategory geoCategory) {
         StationInternal[] stations = stationsRepository.getStations();
-        Function<StationInternal, String> geoIdPicker = getGeoIdPicker(geoCategory);
+        Function<StationInternal, String> geoIdPicker = StationInternal.getGeoIdPicker(geoCategory);
 
         Map<String, Double> avgPetrol95ByGeo = getAverageByGeoAndProduct(Arrays.stream(stations),
                 geoIdPicker,
@@ -77,14 +77,6 @@ public class ComputePricesByGeoImpl implements ComputePricesByGeo {
         return priceInfoByGeo;
     }
 
-    // TODO: remove once in a common place
-    private static Function<StationInternal, String> getGeoIdPicker(@NotNull GeoCategory geoCategory) {
-        return switch (geoCategory) {
-            case CITY -> StationInternal::cityId;
-            case PROVINCE -> StationInternal::provinceId;
-            case AUTONOMOUS_COMMUNITY -> StationInternal::communityId;
-        };
-    }
 
     private static Map<String, Double> getAverageByGeoAndProduct(Stream<StationInternal> filteredStations,
                                                                  Function<StationInternal, String> geoPickerFunction,
