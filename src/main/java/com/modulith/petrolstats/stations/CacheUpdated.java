@@ -1,5 +1,4 @@
 package com.modulith.petrolstats.stations;
 
-public record CacheUpdated() {
-
+public record CacheUpdated(int numStations) {
 }

@@ -5,7 +5,6 @@ import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.docs.Documenter;
 
 class DocumentationTests {
-
     ApplicationModules modules = ApplicationModules.of(PetrolStatsApplication.class);
 
     @Test

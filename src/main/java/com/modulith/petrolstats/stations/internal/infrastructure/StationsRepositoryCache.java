@@ -37,7 +37,7 @@ class StationsRepositoryCache implements StationsRepository {
     void updateCache() throws DataNotAvailableException {
         logger.info("getting new data");
         data = stationsRepository.getStations();
-        events.publishEvent(new CacheUpdated());
+        events.publishEvent(new CacheUpdated(data.length));
         logger.info("cache data updated");
     }
 }
