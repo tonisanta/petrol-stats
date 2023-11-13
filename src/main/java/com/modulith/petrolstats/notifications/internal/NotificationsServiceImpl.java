@@ -16,7 +16,7 @@ public class NotificationsServiceImpl implements NotificationsService {
 
     @EventListener
     public void onCacheUpdated(CacheUpdated event) {
-        System.out.println("New data available, total stations: " + event.numStations());
+        System.out.println("New data available");
         for (CacheUpdatedListener listener : listeners) {
             listener.notify(event);
         }

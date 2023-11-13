@@ -1,10 +1,10 @@
-package com.modulith.petrolstats.stations.internal.infrastructure;
+package com.modulith.petrolstats.stations.internal.infrastructure.reader;
 
 import com.modulith.petrolstats.stations.CacheUpdated;
 import com.modulith.petrolstats.stations.DataNotAvailableException;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
-import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.context.ApplicationEventPublisher;
@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class StationsRepositoryCacheTest {
+class StationsReaderRepositoryCacheTest {
     @Test
     void shouldThrowAnExceptionWhenDataIsNotAvailable() {
-        StationsRepository stationsRepository = mock();
+        StationsReaderRepository stationsReaderRepository = mock();
         ApplicationEventPublisher applicationEventPublisher = mock();
-        StationsRepositoryCache repositoryCache = new StationsRepositoryCache(stationsRepository, applicationEventPublisher);
+        StationsReaderRepositoryCache repositoryCache = new StationsReaderRepositoryCache(stationsReaderRepository, applicationEventPublisher);
         assertThrows(DataNotAvailableException.class, repositoryCache::getStations);
         verify(applicationEventPublisher, times(0)).publishEvent(Mockito.any(CacheUpdated.class));
     }
@@ -35,16 +35,16 @@ class StationsRepositoryCacheTest {
                         new StationPrices(3.0, 2.0, 4.0, 4.0))
         };
 
-        StationsRepository stationsRepository = mock();
-        when(stationsRepository.getStations()).thenReturn(stationsFirstVersion);
+        StationsReaderRepository stationsReaderRepository = mock();
+        when(stationsReaderRepository.getStations()).thenReturn(stationsFirstVersion);
         ApplicationEventPublisher applicationEventPublisher = mock();
-        StationsRepositoryCache repositoryCache = new StationsRepositoryCache(stationsRepository, applicationEventPublisher);
+        StationsReaderRepositoryCache repositoryCache = new StationsReaderRepositoryCache(stationsReaderRepository, applicationEventPublisher);
 
         repositoryCache.updateCache();
         assertArrayEquals(stationsFirstVersion, repositoryCache.getStations());
 
         // simulating new data is available
-        when(stationsRepository.getStations()).thenReturn(stationsSecondVersion);
+        when(stationsReaderRepository.getStations()).thenReturn(stationsSecondVersion);
 
         repositoryCache.updateCache();
         assertArrayEquals(stationsSecondVersion, repositoryCache.getStations());

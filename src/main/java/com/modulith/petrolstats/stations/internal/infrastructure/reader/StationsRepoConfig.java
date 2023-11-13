@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.stations.internal.infrastructure;
+package com.modulith.petrolstats.stations.internal.infrastructure.reader;
 
 import com.modulith.petrolstats.shared.ClientFactory;
 import org.springframework.context.annotation.Bean;

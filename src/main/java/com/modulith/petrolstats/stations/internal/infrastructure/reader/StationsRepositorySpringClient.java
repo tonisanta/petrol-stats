@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.stations.internal.infrastructure;
+package com.modulith.petrolstats.stations.internal.infrastructure.reader;
 
 import org.springframework.web.service.annotation.GetExchange;
 

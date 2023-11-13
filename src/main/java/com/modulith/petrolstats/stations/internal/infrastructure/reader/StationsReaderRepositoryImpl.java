@@ -1,15 +1,15 @@
-package com.modulith.petrolstats.stations.internal.infrastructure;
+package com.modulith.petrolstats.stations.internal.infrastructure.reader;
 
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
-import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-class StationsRepositoryImpl implements StationsRepository {
+class StationsReaderRepositoryImpl implements StationsReaderRepository {
     private final StationsRepositorySpringClient repositorySpringClient;
 
-    public StationsRepositoryImpl(StationsRepositorySpringClient repositorySpringClient) {
+    public StationsReaderRepositoryImpl(StationsRepositorySpringClient repositorySpringClient) {
         this.repositorySpringClient = repositorySpringClient;
     }
 

@@ -1,9 +1,9 @@
-package com.modulith.petrolstats.stations.internal.infrastructure;
+package com.modulith.petrolstats.stations.internal.infrastructure.reader;
 
 import com.modulith.petrolstats.stations.CacheUpdated;
 import com.modulith.petrolstats.stations.DataNotAvailableException;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
-import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,15 +12,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 @Repository
-class StationsRepositoryCache implements StationsRepository {
-    private final Logger logger = LoggerFactory.getLogger(StationsRepositoryCache.class);
-    private final StationsRepository stationsRepository;
+class StationsReaderRepositoryCache implements StationsReaderRepository {
+    private final Logger logger = LoggerFactory.getLogger(StationsReaderRepositoryCache.class);
+    private final StationsReaderRepository stationsReaderRepository;
     private StationInternal[] data;
     private final ApplicationEventPublisher events;
 
-    public StationsRepositoryCache(@Qualifier("stationsRepositoryImpl") StationsRepository stationsRepository,
-                                   ApplicationEventPublisher events) {
-        this.stationsRepository = stationsRepository;
+    public StationsReaderRepositoryCache(@Qualifier("stationsReaderRepositoryImpl") StationsReaderRepository stationsReaderRepository,
+                                         ApplicationEventPublisher events) {
+        this.stationsReaderRepository = stationsReaderRepository;
         this.events = events;
     }
 
@@ -36,8 +36,8 @@ class StationsRepositoryCache implements StationsRepository {
     @Scheduled(fixedRateString = "PT30M")
     void updateCache() throws DataNotAvailableException {
         logger.info("getting new data");
-        data = stationsRepository.getStations();
-        events.publishEvent(new CacheUpdated(data.length));
+        data = stationsReaderRepository.getStations();
+        events.publishEvent(new CacheUpdated());
         logger.info("cache data updated");
     }
 }

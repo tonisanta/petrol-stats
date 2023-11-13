@@ -1,7 +1,7 @@
 package com.modulith.petrolstats.stations.internal.application;
 
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
-import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import com.modulith.petrolstats.stations.searchbyfilter.Filter;
 import com.modulith.petrolstats.stations.searchbyfilter.SearchByFilter;
 import com.modulith.petrolstats.stations.searchbyfilter.Station;
@@ -16,14 +16,14 @@ import java.util.stream.Stream;
 @Service
 public class SearchByFilterImpl implements SearchByFilter {
 
-    private final StationsRepository stationsRepository;
+    private final StationsReaderRepository stationsReaderRepository;
 
-    SearchByFilterImpl(@Qualifier("stationsRepositoryCache") StationsRepository stationsRepository) {
-        this.stationsRepository = stationsRepository;
+    SearchByFilterImpl(@Qualifier("stationsReaderRepositoryCache") StationsReaderRepository stationsReaderRepository) {
+        this.stationsReaderRepository = stationsReaderRepository;
     }
 
     public Station[] searchByFilter(@Nullable Filter filter) {
-        StationInternal[] stations = stationsRepository.getStations();
+        StationInternal[] stations = stationsReaderRepository.getStations();
         if (filter == null) {
             return mapToApiModel(Arrays.stream(stations));
         }

@@ -3,7 +3,7 @@ package com.modulith.petrolstats.stations.internal.application;
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
-import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import com.modulith.petrolstats.stations.searchbyfilter.Filter;
 import com.modulith.petrolstats.stations.searchbyfilter.GeoFilter;
 import com.modulith.petrolstats.stations.searchbyfilter.Station;
@@ -40,10 +40,10 @@ public class SearchByFilterImplTest {
     @MethodSource
     @ParameterizedTest(name = "{index}: {0}")
     void getByFilter(Filter filter, String[] expectedIds) {
-        StationsRepository stationsRepository = mock();
-        when(stationsRepository.getStations()).thenReturn(stations);
+        StationsReaderRepository stationsReaderRepository = mock();
+        when(stationsReaderRepository.getStations()).thenReturn(stations);
 
-        SearchByFilterImpl stationsService = new SearchByFilterImpl(stationsRepository);
+        SearchByFilterImpl stationsService = new SearchByFilterImpl(stationsReaderRepository);
         Station[] filteredStations = stationsService.searchByFilter(filter);
 
         String[] ids = Arrays.stream(filteredStations).map(Station::id).toArray(String[]::new);

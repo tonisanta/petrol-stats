@@ -4,7 +4,7 @@ import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
-import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import com.modulith.petrolstats.stations.pricesbygeo.ComputePricesByGeo;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,15 +20,15 @@ import java.util.stream.Stream;
 
 @Service
 public class ComputePricesByGeoImpl implements ComputePricesByGeo {
-    private final StationsRepository stationsRepository;
+    private final StationsReaderRepository stationsReaderRepository;
 
-    ComputePricesByGeoImpl(@Qualifier("stationsRepositoryCache") StationsRepository stationsRepository) {
-        this.stationsRepository = stationsRepository;
+    ComputePricesByGeoImpl(@Qualifier("stationsReaderRepositoryCache") StationsReaderRepository stationsReaderRepository) {
+        this.stationsReaderRepository = stationsReaderRepository;
     }
 
     @Override
     public Map<String, StationPriceInfo> computePricesByGeo(@NotNull GeoCategory geoCategory) {
-        StationInternal[] stations = stationsRepository.getStations();
+        StationInternal[] stations = stationsReaderRepository.getStations();
         Function<StationInternal, String> geoIdPicker = StationInternal.getGeoIdPicker(geoCategory);
 
         Map<String, Double> avgPetrol95ByGeo = getAverageByGeoAndProduct(Arrays.stream(stations),

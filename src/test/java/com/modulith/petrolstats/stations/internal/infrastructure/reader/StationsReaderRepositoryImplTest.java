@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.stations.internal.infrastructure;
+package com.modulith.petrolstats.stations.internal.infrastructure.reader;
 
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-class StationsRepositoryImplTest {
+class StationsReaderRepositoryImplTest {
 
     @Test
     void getStations() {
@@ -33,7 +33,7 @@ class StationsRepositoryImplTest {
         StationsRepositorySpringClient repositorySpringClient = mock();
         when(repositorySpringClient.getStations()).thenReturn(response);
 
-        StationsRepositoryImpl stationsRepository = new StationsRepositoryImpl(repositorySpringClient);
+        StationsReaderRepositoryImpl stationsRepository = new StationsReaderRepositoryImpl(repositorySpringClient);
         var stations = stationsRepository.getStations();
         var expectedStations = new StationInternal[]{
                 new StationInternal("1234", "cityA", "provinceA", "communityA",

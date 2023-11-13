@@ -4,7 +4,7 @@ import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
-import com.modulith.petrolstats.stations.internal.domain.StationsRepository;
+import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -36,10 +36,10 @@ public class ComputePricesByGeoImplTest {
     @MethodSource
     @ParameterizedTest(name = "{index}: {0}")
     void getPricesAggregatedByGeo(GeoCategory geoCategory, Map<String, StationPriceInfo> expectedPriceByGeoId) {
-        StationsRepository stationsRepository = mock();
-        when(stationsRepository.getStations()).thenReturn(stations);
+        StationsReaderRepository stationsReaderRepository = mock();
+        when(stationsReaderRepository.getStations()).thenReturn(stations);
 
-        ComputePricesByGeoImpl stationsService = new ComputePricesByGeoImpl(stationsRepository);
+        ComputePricesByGeoImpl stationsService = new ComputePricesByGeoImpl(stationsReaderRepository);
         Map<String, StationPriceInfo> avgPriceByGeoId = stationsService.computePricesByGeo(geoCategory);
 
         assertEquals(expectedPriceByGeoId, avgPriceByGeoId);
