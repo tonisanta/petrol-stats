@@ -14,5 +14,4 @@ class StationsRepoConfig {
         var baseUrl = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes";
         return ClientFactory.createClient(StationsRepositorySpringClient.class, Duration.ofSeconds(30), baseUrl);
     }
-
 }
