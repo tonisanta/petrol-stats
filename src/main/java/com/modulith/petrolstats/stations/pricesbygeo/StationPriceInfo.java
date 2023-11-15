@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.stations;
+package com.modulith.petrolstats.stations.pricesbygeo;
 
 import org.jetbrains.annotations.Nullable;
 

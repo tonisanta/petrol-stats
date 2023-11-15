@@ -1,10 +1,10 @@
 package com.modulith.petrolstats.stations.internal.application;
 
 import com.modulith.petrolstats.geography.GeoCategory;
-import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
 import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
+import com.modulith.petrolstats.stations.pricesbygeo.StationPriceInfo;
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

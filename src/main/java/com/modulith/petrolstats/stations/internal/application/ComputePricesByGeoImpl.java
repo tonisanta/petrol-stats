@@ -1,11 +1,11 @@
 package com.modulith.petrolstats.stations.internal.application;
 
 import com.modulith.petrolstats.geography.GeoCategory;
-import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationInternal;
 import com.modulith.petrolstats.stations.internal.domain.StationPrices;
 import com.modulith.petrolstats.stations.internal.domain.StationsReaderRepository;
 import com.modulith.petrolstats.stations.pricesbygeo.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.pricesbygeo.StationPriceInfo;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

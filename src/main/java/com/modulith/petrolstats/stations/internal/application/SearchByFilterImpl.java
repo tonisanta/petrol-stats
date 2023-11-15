@@ -40,7 +40,7 @@ public class SearchByFilterImpl implements SearchByFilter {
 
     private Station[] mapToApiModel(Stream<StationInternal> stations) {
         return stations
-                .map(s -> new Station(s.id(), s.cityId(), s.provinceId(), s.communityId(), s.stationPrices().ToStationPriceInfo()))
+                .map(StationInternal::toApiModel)
                 .toArray(Station[]::new);
     }
 

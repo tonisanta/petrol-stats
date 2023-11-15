@@ -1,6 +1,7 @@
 package com.modulith.petrolstats.stations.internal.domain;
 
-import com.modulith.petrolstats.stations.StationPriceInfo;
+import com.modulith.petrolstats.stations.Product;
+import com.modulith.petrolstats.stations.pricesbygeo.StationPriceInfo;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -25,8 +26,22 @@ public class StationPrices {
         this.dieselPremium = dieselPremium;
     }
 
-    public StationPriceInfo ToStationPriceInfo() {
+    public StationPriceInfo toApiModel() {
         return new StationPriceInfo(petrol95, petrol98, diesel, dieselPremium);
+    }
+
+    public static StationPrices buildFromApiModel(StationPriceInfo stationPriceInfo) {
+        return new StationPrices(stationPriceInfo.petrol95(), stationPriceInfo.petrol98(),
+                stationPriceInfo.diesel(), stationPriceInfo.dieselPremium());
+    }
+
+    public Double getByProduct(Product product) {
+        return switch (product) {
+            case PETROL95 -> this.petrol95;
+            case PETROL98 -> this.petrol98;
+            case DIESEL -> this.diesel;
+            case DIESEL_PREMIUM -> this.dieselPremium;
+        };
     }
 
     @Override

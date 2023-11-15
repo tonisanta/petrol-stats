@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 public class DummyListener implements CacheUpdatedListener {
     @Override
     public void notify(CacheUpdated cacheUpdated) {
-        System.out.println("Processing new data ...");
+        System.out.println("Dummy listener processing new data ...");
         try {
             Thread.sleep(Duration.of(200, ChronoUnit.MILLIS));
         } catch (InterruptedException e) {

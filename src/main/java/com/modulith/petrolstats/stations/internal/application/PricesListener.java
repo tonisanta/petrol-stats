@@ -2,9 +2,9 @@ package com.modulith.petrolstats.stations.internal.application;
 
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.CacheUpdated;
-import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationsWriterRepository;
 import com.modulith.petrolstats.stations.pricesbygeo.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.pricesbygeo.StationPriceInfo;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 

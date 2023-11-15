@@ -1,8 +1,8 @@
 package com.modulith.petrolstats.stations.internal.infrastructure.writer;
 
 import com.modulith.petrolstats.geography.GeoCategory;
-import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.internal.domain.StationsWriterRepository;
+import com.modulith.petrolstats.stations.pricesbygeo.StationPriceInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

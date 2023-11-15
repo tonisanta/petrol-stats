@@ -1,6 +1,6 @@
 package com.modulith.petrolstats.stations.searchbyfilter;
 
-import com.modulith.petrolstats.stations.StationPriceInfo;
+import com.modulith.petrolstats.stations.pricesbygeo.StationPriceInfo;
 
 public record Station(
         String id,

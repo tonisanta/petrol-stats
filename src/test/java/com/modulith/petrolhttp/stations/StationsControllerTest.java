@@ -1,8 +1,8 @@
 package com.modulith.petrolhttp.stations;
 
 import com.modulith.petrolstats.geography.GeoCategory;
-import com.modulith.petrolstats.stations.StationPriceInfo;
 import com.modulith.petrolstats.stations.pricesbygeo.ComputePricesByGeo;
+import com.modulith.petrolstats.stations.pricesbygeo.StationPriceInfo;
 import com.modulith.petrolstats.stations.searchbyfilter.Filter;
 import com.modulith.petrolstats.stations.searchbyfilter.GeoFilter;
 import com.modulith.petrolstats.stations.searchbyfilter.SearchByFilter;
