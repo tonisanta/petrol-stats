@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class SearchCheapestByFilterImplTest {
     private final Station[] stations = {
             new Station("1", "cityA", "provinceA", "communityD",
-                    new StationPriceInfo(3.0, 2.0, 3.7, 4.0)),
+                    new StationPriceInfo(3.0, 2.0, null, 4.0)),
             new Station("2", "cityA", "provinceA", "communityD",
                     new StationPriceInfo(2.0, 2.0, 3.0, 4.0)),
             new Station("3", "cityA", "provinceA", "communityD",
@@ -50,7 +50,7 @@ public class SearchCheapestByFilterImplTest {
                 new Station("3", "cityA", "provinceA", "communityD",
                         new StationPriceInfo(2.48, 2.0, 3.2, 4.0)),
                 new Station("1", "cityA", "provinceA", "communityD",
-                        new StationPriceInfo(3.0, 2.0, 3.7, 4.0))
+                        new StationPriceInfo(3.0, 2.0, null, 4.0))
         };
         var expectedTop1Diesel = new Station[]{
                 new Station("2", "cityA", "provinceA", "communityD",

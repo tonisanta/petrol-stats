@@ -26,6 +26,7 @@ public class SearchCheapestByFilterImpl implements SearchCheapestByFilter {
         var filteredStations = searchByFilter.searchByFilter(filter);
 
         var topStations = Arrays.stream(filteredStations).map(StationInternal::buildFromApiModel)
+                .filter(stationInternal -> stationInternal.stationPrices().getByProduct(product) != null)
                 .sorted(Comparator.comparingDouble(s -> s.stationPrices().getByProduct(product)))
                 .limit(numStations);
 
