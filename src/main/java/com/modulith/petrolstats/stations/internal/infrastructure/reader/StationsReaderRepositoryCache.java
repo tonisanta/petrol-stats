@@ -34,7 +34,7 @@ class StationsReaderRepositoryCache implements StationsReaderRepository {
 
     // Run every 30 minutes, is the refresh rate mentioned in the API docs
     @Scheduled(fixedRateString = "PT30M")
-    void updateCache() throws DataNotAvailableException {
+    void updateCache() {
         logger.info("getting new data");
         data = stationsReaderRepository.getStations();
         events.publishEvent(new CacheUpdated());
