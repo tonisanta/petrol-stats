@@ -37,6 +37,7 @@ class StationsReaderRepositoryCache implements StationsReaderRepository {
     void updateCache() {
         logger.info("getting new data");
         data = stationsReaderRepository.getStations();
+        // TODO: add listener to create annotation in Grafana when new data is available
         events.publishEvent(new CacheUpdated());
         logger.info("cache data updated");
     }

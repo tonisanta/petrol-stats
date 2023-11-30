@@ -24,7 +24,7 @@ class StationsControllerTest {
     };
 
     @Test
-    void shouldReturn200AndAllStations() {
+    void shouldReturnAllStations() {
         SearchByFilter searchByFilter = mock();
         var stationsController = new StationsController(searchByFilter, null);
         when(searchByFilter.searchByFilter(null)).thenReturn(stationsToReturn);

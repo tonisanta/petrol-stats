@@ -19,6 +19,6 @@ public class CacheUpdatedListener {
     @EventListener
     void onCacheUpdated(CacheUpdated event) {
         System.out.println("Generating new reports ...");
-        template.convertAndSend(directExchange.getName(), "prices.updated", "PricesUpdated");
+        template.convertAndSend(directExchange.getName(), "prices.updated", "");
     }
 }
