@@ -27,3 +27,8 @@ services:
       - "8080:8080"
     environment:
       - "SPRING_PROFILES_ACTIVE=docker"
+
+  petrol-reports:
+    build: petrol-reports
+    ports:
+      - "5000:5000"
