@@ -32,22 +32,4 @@ public class RabbitConfiguration {
     public DirectExchange directExchange() {
         return new DirectExchange("stations.events");
     }
-
-    /**
-     * We're interested only in currently flowing messages, not in the old ones. So we need to:
-     * Firstly, whenever we connect to Rabbit, we need a fresh, empty queue
-     * Secondly, once we disconnect the consumer, the queue should be automatically deleted.
-     *
-     * @return
-     */
-    @Bean
-    public Queue autoDeleteQueue() {
-        // AnonymousQueue, which creates a non-durable, exclusive, auto-delete queue with a generated name
-        return new AnonymousQueue();
-    }
-
-    @Bean
-    public Binding binding(DirectExchange directExchange, Queue autoDeleteQueue) {
-        return BindingBuilder.bind(autoDeleteQueue).to(directExchange).with("prices.updated");
-    }
 }

@@ -13,12 +13,8 @@ prices_repo = PricesRepository()
 reports_generator = ReportsGenerator(prices_repo)
 prices_listener = PricesListener(reports_generator)
 
-print("hello")
-file = open("spain-provinces.geojson", "r")
-
 executor = ThreadPoolExecutor()
 executor.submit(prices_listener.listen_events)
-
 
 
 @app.route('/reports/<geocategory>/<product>')
@@ -35,7 +31,7 @@ def reports(geocategory: str, product: str):
 
     # Get the 'include_outliers' query parameter, using type=bool always evaluates to True, so we
     # have to do this manual comparison
-    include_outliers: bool = request.args.get('include_outliers', default=False, type=str).lower() == 'true'
+    include_outliers: bool = request.args.get('include_outliers', default="false", type=str).lower() == 'true'
 
     f = Filter(geocategory_enum, product_enum, include_outliers)
     m = reports_generator.reports_by_filter[f]
