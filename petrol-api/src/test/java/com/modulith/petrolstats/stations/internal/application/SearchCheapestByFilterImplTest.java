@@ -37,7 +37,7 @@ public class SearchCheapestByFilterImplTest {
         SearchCheapestByFilterImpl searchCheapestByFilter = new SearchCheapestByFilterImpl(searchByFilter);
         when(searchByFilter.searchByFilter(filter)).thenReturn(stations);
 
-        var topStations = searchCheapestByFilter.searchCheapestByFilterAndProduct(filter, product, numStations);
+        Station[] topStations = searchCheapestByFilter.searchCheapestByFilterAndProduct(filter, product, numStations);
         assertArrayEquals(expectedStations, topStations);
     }
 
