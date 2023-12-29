@@ -1,4 +1,4 @@
-package com.modulith.petrolhttp.stations;
+package com.modulith.petrolstats.stations.internal.infrastructure;
 
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.stations.DataNotAvailableException;

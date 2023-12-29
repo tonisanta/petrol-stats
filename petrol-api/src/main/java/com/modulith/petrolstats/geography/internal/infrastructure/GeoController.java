@@ -1,4 +1,4 @@
-package com.modulith.petrolhttp.geography;
+package com.modulith.petrolstats.geography.internal.infrastructure;
 
 import com.modulith.petrolstats.geography.GeoCategory;
 import com.modulith.petrolstats.geography.GeoResponse;
