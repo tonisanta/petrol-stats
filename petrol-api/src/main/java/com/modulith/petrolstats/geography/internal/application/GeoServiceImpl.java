@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 class GeoServiceImpl implements GeoService {
-
     private final GeoRepository geoRepository;
 
     public GeoServiceImpl(GeoRepository geoRepository) {

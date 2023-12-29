@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 
 @Service
 public class SearchByFilterImpl implements SearchByFilter {
-
     private final StationsReaderRepository stationsReaderRepository;
 
     SearchByFilterImpl(@Qualifier("stationsReaderRepositoryCache") StationsReaderRepository stationsReaderRepository) {
