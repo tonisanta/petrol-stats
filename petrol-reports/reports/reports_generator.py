@@ -1,8 +1,10 @@
 import geopandas as gpd
 import pandas as pd
+import logging
 
 from petrolstations.geocategory import GeoCategory
 from petrolstations.prices_repository import PricesRepository
+from petrolstations.product import Product
 from reports.filter import Filter
 
 
@@ -34,15 +36,26 @@ class ReportsGenerator:
     def __init__(self, prices_repository: PricesRepository):
         self.prices_repository = prices_repository
 
+    def generate_reports(self):
+        logging.info("generating reports")
+        for category in GeoCategory:
+            if category == GeoCategory.CITY:
+                continue
+
+            for prod in Product:
+                f = Filter(category, prod, False)
+                self.generate_report(f)
+                f2 = Filter(category, prod, True)
+                self.generate_report(f2)
+
+        logging.info("generating reports - done")
+
     def generate_report(self, f: Filter):
         prices = self.prices_repository.get_prices_by_geocategory(f.geocategory)
 
         # "cod_prov" or "cod_ccaa" depending on geocategory
         column_name: str = self.info_by_geocategory[f.geocategory]["index"]
 
-        print("filter")
-        print(f)
-        print(f.product.value)
         df = pd.DataFrame.from_dict(data=prices, orient="index")
         df = df.reset_index().rename(columns={"index": column_name})
         df[f.product.value] = df[f.product.value].round(decimals=4)
@@ -66,4 +79,4 @@ class ReportsGenerator:
         )
 
         self.reports_by_filter[f] = folium_map
-        print("report saved")
+        logging.info("report saved, filter: %s", f)

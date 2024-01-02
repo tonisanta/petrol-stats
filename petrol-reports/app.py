@@ -6,15 +6,22 @@ from petrolstations.product import Product
 from reports.filter import Filter
 from reports.prices_listener import PricesListener
 from reports.reports_generator import ReportsGenerator
+import logging
 
+logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 
 prices_repo = PricesRepository()
 reports_generator = ReportsGenerator(prices_repo)
 prices_listener = PricesListener(reports_generator)
 
+logging.info("Generating first time reports")
+reports_generator.generate_reports()
+
 executor = ThreadPoolExecutor()
 executor.submit(prices_listener.listen_events)
+
+logging.info("Ready to handle requests")
 
 
 @app.route('/reports/<geocategory>/<product>')
