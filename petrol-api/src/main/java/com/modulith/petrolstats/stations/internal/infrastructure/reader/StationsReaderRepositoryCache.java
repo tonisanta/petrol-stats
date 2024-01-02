@@ -32,13 +32,12 @@ class StationsReaderRepositoryCache implements StationsReaderRepository {
         return data;
     }
 
-    // Run every 30 minutes, is the refresh rate mentioned in the API docs
+    // Run every 30 minutes, it's the refresh rate mentioned in the API docs
     @Scheduled(fixedRateString = "PT30M")
     void updateCache() {
         logger.info("getting new data");
         data = stationsReaderRepository.getStations();
-        // TODO: add listener to create annotation in Grafana when new data is available
         events.publishEvent(new CacheUpdated());
-        logger.info("cache data updated");
+        logger.info("cache updated");
     }
 }

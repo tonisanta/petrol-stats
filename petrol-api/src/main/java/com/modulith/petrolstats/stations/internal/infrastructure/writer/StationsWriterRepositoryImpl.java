@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * StationsWriterRepository implementation using JPA
@@ -27,11 +28,12 @@ public class StationsWriterRepositoryImpl implements StationsWriterRepository {
 
     @Override
     public void storePricesByGeo(GeoCategory geoCategory, Map<String, StationPriceInfo> pricesByGeo) {
+        UUID executionID = UUID.randomUUID();
         switch (geoCategory) {
             case PROVINCE -> {
                 ArrayList<PriceByProvince> prices = new ArrayList<>();
                 pricesByGeo.forEach((provinceId, priceInfo) -> {
-                    var priceByProvince = new PriceByProvince(provinceId, priceInfo.petrol95(),
+                    var priceByProvince = new PriceByProvince(executionID, provinceId, priceInfo.petrol95(),
                             priceInfo.petrol98(), priceInfo.diesel(), priceInfo.dieselPremium());
                     prices.add(priceByProvince);
                 });
@@ -40,7 +42,7 @@ public class StationsWriterRepositoryImpl implements StationsWriterRepository {
             case AUTONOMOUS_COMMUNITY -> {
                 ArrayList<PriceByCommunity> prices = new ArrayList<>();
                 pricesByGeo.forEach((communityId, priceInfo) -> {
-                    var priceByCommunity = new PriceByCommunity(communityId, priceInfo.petrol95(),
+                    var priceByCommunity = new PriceByCommunity(executionID, communityId, priceInfo.petrol95(),
                             priceInfo.petrol98(), priceInfo.diesel(), priceInfo.dieselPremium());
                     prices.add(priceByCommunity);
                 });

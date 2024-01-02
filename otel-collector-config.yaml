@@ -13,11 +13,15 @@ exporters:
     tls:
       insecure: true
 
+  # Data sources: metrics
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+
 service:
   pipelines:
     metrics:
       receivers: [otlp]
-      exporters: [logging]
+      exporters: [logging,prometheus]
     traces:
       receivers: [otlp]
       exporters: [otlp/jaeger]

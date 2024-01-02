@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -12,6 +13,7 @@ public class PriceByCommunity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private UUID executionId;
     private String communityId;
     private Double petrol95;
     private Double petrol98;
@@ -23,7 +25,8 @@ public class PriceByCommunity {
     public PriceByCommunity() {
     }
 
-    public PriceByCommunity(String communityId, Double petrol95, Double petrol98, Double diesel, Double dieselPremium) {
+    public PriceByCommunity(UUID executionId, String communityId, Double petrol95, Double petrol98, Double diesel, Double dieselPremium) {
+        this.executionId = executionId;
         this.communityId = communityId;
         this.petrol95 = petrol95;
         this.petrol98 = petrol98;
@@ -85,5 +88,13 @@ public class PriceByCommunity {
 
     public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public UUID getExecutionId() {
+        return executionId;
+    }
+
+    public void setExecutionId(UUID executionId) {
+        this.executionId = executionId;
     }
 }

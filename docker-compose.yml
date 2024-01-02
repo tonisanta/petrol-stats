@@ -3,10 +3,12 @@ services:
     image: "grafana/grafana"
     ports:
       - "3000:3000"
+    environment:
+      - "GF_PANELS_DISABLE_SANITIZE_HTML=true"
     volumes:
       - ./metrics/grafana/storage:/var/lib/grafana
   db:
-    image: mysql
+    image: mysql:8.2.0
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
     # (this is just an example, not intended to be a production configuration)
     command: --default-authentication-plugin=mysql_native_password
@@ -15,6 +17,8 @@ services:
       MYSQL_ROOT_PASSWORD: my-secret-pw
     ports:
       - "3306:3306"
+    volumes:
+      - "./petrol-api/src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql"
   rabbitmq:
     image: rabbitmq:3.12-management
     ports:
@@ -44,6 +48,9 @@ services:
     command: --config=/etc/otelcol-contrib/config.yaml
     volumes:
       - ./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - "8888:8888"
+      - "8889:8889"
 
   jaeger:
     image: jaegertracing/all-in-one:1.51
@@ -51,3 +58,11 @@ services:
       - "16686:16686"
     depends_on:
       - otel-collector
+
+  prometheus:
+    image: prom/prometheus:v2.48.1
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./metrics/prometheus/storage:/prometheus
+    ports:
+      - "9090:9090"
