@@ -43,6 +43,7 @@ services:
     depends_on:
       - petrol-api
       - rabbitmq
+      - otel-collector
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.90.1

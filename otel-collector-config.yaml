@@ -17,14 +17,22 @@ exporters:
   prometheus:
     endpoint: "0.0.0.0:8889"
 
+
+connectors:
+  spanmetrics:
+    dimensions:
+      - name: status # rename status to http.status_code
+      # - name: http.host
+      # - name: http.url
+
 service:
   pipelines:
     metrics:
-      receivers: [otlp]
+      receivers: [otlp,spanmetrics]
       exporters: [logging,prometheus]
     traces:
       receivers: [otlp]
-      exporters: [otlp/jaeger]
+      exporters: [otlp/jaeger, spanmetrics]
     logs:
       receivers: [otlp]
       exporters: [logging]
