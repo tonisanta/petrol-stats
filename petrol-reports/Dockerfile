@@ -7,6 +7,9 @@
 ARG PYTHON_VERSION=3.9
 FROM python:${PYTHON_VERSION}-slim as base
 
+RUN apt-get update
+RUN apt-get install -y gdal-bin libgdal-dev g++
+
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
 
