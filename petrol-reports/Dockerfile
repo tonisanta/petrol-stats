@@ -38,15 +38,15 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
-# Commenting some of the OTEL stuf, as some parts are not 100% stable yet
+# Commenting some of the OTEL stuff, as some parts are not 100% stable yet
 #RUN pip install opentelemetry-distro
 #RUN pip install opentelemetry-instrumentation-flask
 #RUN pip install opentelemetry-exporter-otlp
 #RUN pip install flask
 #RUN pip install requests
-#
+
 #RUN opentelemetry-bootstrap -a install
-#
+
 #ENV OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 
 # Switch to the non-privileged user to run the application.
@@ -60,7 +60,6 @@ EXPOSE 5000
 
 # Run the application.
 CMD python3 -m flask run --host=0.0.0.0
-# --exporter_otlp_endpoint otel-collector:4317 \
 #CMD opentelemetry-instrument \
 #    --traces_exporter otlp \
 #    --metrics_exporter otlp \

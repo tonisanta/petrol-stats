@@ -16,3 +16,6 @@ scrape_configs:
   - job_name: 'rabbitmq-metrics'
     static_configs:
       - targets: ['rabbitmq:15692']
+  - job_name: 'petrol-reports-metrics'
+    static_configs:
+      - targets: ['petrol-reports:5000']
