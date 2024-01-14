@@ -3,6 +3,7 @@ import logging
 
 from concurrent.futures import ThreadPoolExecutor
 from flask import Flask, jsonify, request
+from prometheus_flask_exporter import PrometheusMetrics
 from petrolstations.geocategory import GeoCategory
 from petrolstations.prices_repository import PricesRepository
 from petrolstations.product import Product
@@ -12,6 +13,9 @@ from reports.reports_generator import ReportsGenerator
 
 logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
+
+metrics = PrometheusMetrics(app)
+metrics.info('petrol_reports', 'Service to generate petrol reports', version='1.0.0')
 
 prices_repo = PricesRepository()
 reports_generator = ReportsGenerator(prices_repo)

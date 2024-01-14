@@ -6,3 +6,4 @@ matplotlib~=3.8.2
 folium~=0.15.0
 selenium~=4.15.2
 mapclassify~=2.6.1
+prometheus-flask-exporter==0.23.0
