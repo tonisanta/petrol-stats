@@ -36,15 +36,21 @@ services:
       - db
       - otel-collector
       - rabbitmq
+    healthcheck:
+      test: curl -f http://petrol-api:8080/stations/aggregate/PROVINCE || exit 1
+      start_period: 15s
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   petrol-reports:
     build: petrol-reports
     ports:
       - "5000:5000"
     depends_on:
-      - petrol-api
-      - rabbitmq
-      - otel-collector
+      petrol-api:
+        condition: service_healthy
+        restart: true
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.90.1
