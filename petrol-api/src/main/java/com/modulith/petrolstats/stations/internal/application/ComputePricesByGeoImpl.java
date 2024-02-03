@@ -48,7 +48,7 @@ public class ComputePricesByGeoImpl implements ComputePricesByGeo {
                 s -> s.stationPrices().dieselPremium);
 
 
-        // to simply the initialization of the values, we are going to get all the ids to instantiate
+        // to simplify the initialization of the values, we are going to get all the ids to instantiate
         // the price object
         Set<String> geoIds = Stream.of(
                         avgPetrol95ByGeo.keySet(),

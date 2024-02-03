@@ -21,8 +21,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class SearchByFilterImplTest {
-
-    // TODO: have it in a common place maybe or use different data?
     private final StationInternal[] stations = {
             new StationInternal("1", "cityC", "provinceA", "communityD",
                     new StationPrices(1.0, 2.0, 6.4, 4.0)),

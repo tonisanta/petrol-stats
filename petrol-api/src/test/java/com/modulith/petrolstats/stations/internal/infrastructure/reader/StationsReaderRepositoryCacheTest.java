@@ -45,7 +45,6 @@ class StationsReaderRepositoryCacheTest {
 
         // simulating new data is available
         when(stationsReaderRepository.getStations()).thenReturn(stationsSecondVersion);
-
         repositoryCache.updateCache();
         assertArrayEquals(stationsSecondVersion, repositoryCache.getStations());
 
