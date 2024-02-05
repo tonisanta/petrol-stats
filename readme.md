@@ -28,6 +28,7 @@ there are some others showing requests, cpu/memory usage, etc.
 
 The entrypoint is available in public internet as it's exposed using AWS API
 Gateway, acting as a reverse proxy to the local network.
+
 ![General overview](./images/petrol-overview.svg)
 
 Observability is a must, and this project is not an exception. So I've been play
