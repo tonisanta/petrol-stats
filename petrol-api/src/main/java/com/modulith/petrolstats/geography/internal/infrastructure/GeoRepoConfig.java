@@ -1,6 +1,6 @@
 package com.modulith.petrolstats.geography.internal.infrastructure;
 
-import com.modulith.petrolstats.shared.ClientFactory;
+import com.modulith.petrolstats.httpclient.ClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,4 +1,4 @@
-package com.modulith.petrolstats.shared;
+package com.modulith.petrolstats.httpclient;
 
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
